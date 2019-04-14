@@ -87,14 +87,18 @@ class TowerButton():
     def drawButton(self, pressed):
         if not pressed:
             self.canvas.create_rectangle(self.location[0],
-                                         self.location[1], self.location[2], self.location[3],
+                                         self.location[1], self.location[2],
+                                         self.location[3],
                                          fill="#333333", outline="white")
-        elif pressed == True:
+        elif pressed:
             self.canvas.create_rectangle(self.location[0],
-                                         self.location[1], self.location[2], self.location[3],
-                                         fill="#333333", outline=self.iconColor)
+                                         self.location[1], self.location[2],
+                                         self.location[3],
+                                         fill="#333333",
+                                         outline=self.iconColor)
         self.canvas.create_text(self.location[0] + 120,
-                                self.location[1] + (self.location[3] - self.location[1]) / 2,
+                                self.location[1] +
+                                (self.location[3] - self.location[1]) / 2,
                                 text=self.towerName, fill="white")
         self.drawTowerIcon()
 

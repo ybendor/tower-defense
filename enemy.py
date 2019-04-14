@@ -2,6 +2,7 @@
 # Enemy Wave class
 ###########################################
 
+
 class EnemyWave(object):
     def __init__(self, numEnemies, rows, cols, cellDim, startLocation, board):
         self.wave = []
@@ -11,7 +12,7 @@ class EnemyWave(object):
 # Enemy class
 ###########################################
 
-class Enemy():
+class Enemy:
     def __init__(self, boardRows, boardCols, cellDim, startLocation,
                  board, enemyHealth, color):
         (self.rows, self.cols, self.cellDim) = (boardRows,
@@ -111,7 +112,8 @@ class Enemy():
                 elif col - 1 < 0:
                     return self.board[row][col + 1] == 1
                 else:
-                    return self.board[row][col + 1] == 1 or self.board[row][col - 1] == 1
+                    return self.board[row][col + 1] == 1 or\
+                           self.board[row][col - 1] == 1
         return False
 
     def moveEnemyRow(self, row, col):
