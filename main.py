@@ -1,4 +1,5 @@
-from animation import (PhotoImage, Animation, ALL)
+from animation import (Animation, ALL)
+from tkinter import PhotoImage
 from enemy import (EnemyWave, Enemy)
 from tower import (Tower, TowerArray, OrangeTower, PurpleTower,
                    RedTower, GreenTower)

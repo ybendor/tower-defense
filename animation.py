@@ -1,4 +1,4 @@
-from tkinter import (Tk, Canvas, ALL, PhotoImage)
+from tkinter import (Tk, Canvas, ALL)
 
 
 ###########################################
