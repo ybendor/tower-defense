@@ -54,6 +54,7 @@ class Tower:
     def get_color(self):
         return self.color
 
+
 ###########################################
 # Orange Tower class
 ###########################################
