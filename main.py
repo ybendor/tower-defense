@@ -728,6 +728,7 @@ class towerDefense(Animation):
         self.canvas.create_image(self.width / 2,
                                  self.height - 100, image=self.youWinHelpImage)
 
+if __name__ == '__main__':
 
-app = towerDefense()
-app.run()
+    app = towerDefense()
+    app.run()
