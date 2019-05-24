@@ -36,6 +36,7 @@ jobs:
           path: test-reports
           destination: test-reports
   pythontests:
+    <<: *test_defaults
     steps:
       - run: 
           command: pytest tst.py
