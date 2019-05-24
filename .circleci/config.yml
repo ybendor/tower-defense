@@ -38,8 +38,10 @@ jobs:
   pythontests:
     <<: *test_defaults
     steps:
+      - run:
+          command: sudo pip install pytest
       - run: 
-          command: py.test tst.py
+          command: pytest tst.py
 
 workflows:
   version: 2
