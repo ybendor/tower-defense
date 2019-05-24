@@ -38,6 +38,7 @@ jobs:
   pythontests:
     <<: *test_defaults
     steps:
+      - checkout
       - run:
           command: sudo pip install pytest
       - run: 
