@@ -1,7 +1,7 @@
 import unittest
 import enemy
 import tower
-from unittest.mock import Mock, MagicMock, patch
+from unittest.mock import patch
 import random
 
 
@@ -34,6 +34,7 @@ class GameTest(unittest.TestCase):
         for i in range(r):
             dummy_tower.fireShot(dummy_enemy)
         self.assertEqual(r, len(dummy_tower.shots))
+
     def test_getRowCol(self):
         enemy_colours = ["white", "pink", "yellow", "cyan", "maroon"]
         colour = random.choice(enemy_colours)
@@ -47,6 +48,7 @@ class GameTest(unittest.TestCase):
         print(l2)
         print(c1)
         print(c2)
+
     def ignore_get_color(self):
         pass
         # tower_classes = (tower.OrangeTower, tower.RedTower,
