@@ -1,0 +1,57 @@
+import unittest
+import enemy
+import tower
+from unittest.mock import Mock, MagicMock, patch
+import random
+
+
+class GameTest(unittest.TestCase):
+    # Tk, Canvas, ALL
+    @patch('animation.Tk')
+    @patch('animation.Canvas')
+    @patch('animation.ALL')
+    def test_example(self, mock_ALL, mock_Canvas, mock_Tk):
+        # l = []
+        # app = main.towerDefense()
+        # app.run()
+        # app.newEnemyWave()
+        # with patch.object(main.towerDefense.enemyWave.wave, l):
+        #    app.addEnemyToWave()
+        # self.assertEqual(len(app.enemyWave.wave), 1)
+        # app.enemyWave.wave.remove = MagicMock()
+        # app.enemyWave.wave.remove.assert_called_once_with(enemymock)
+        pass
+
+    def test_shot(self):
+        enemy_colours = ["white", "pink", "yellow", "cyan", "maroon"]
+        colour = random.choice(enemy_colours)
+        dummy_enemy = enemy.Enemy(0, 0, 40, (0, 0), [[]], 5, colour)
+        dummy_tower = tower.OrangeTower(0, 0, [[]], 40)
+        self.assertEqual(0, len(dummy_tower.shots))
+        r = random.randint(0, 10)
+        print(r)
+        print(colour)
+        for i in range(r):
+            dummy_tower.fireShot(dummy_enemy)
+        self.assertEqual(r, len(dummy_tower.shots))
+    def test_getRowCol(self):
+        enemy_colours = ["white", "pink", "yellow", "cyan", "maroon"]
+        colour = random.choice(enemy_colours)
+        dummy_enemy = enemy.Enemy(15, 15, 40, (0, 1), [[]], 5, colour)
+        l1 = dummy_enemy.location
+        c1 = dummy_enemy.center
+        dummy_enemy.moveEnemy()
+        l2 = dummy_enemy.location
+        c2 = dummy_enemy.center
+        print(l1)
+        print(l2)
+        print(c1)
+        print(c2)
+    def ignore_get_color(self):
+        pass
+        # tower_classes = (tower.OrangeTower, tower.RedTower,
+        #                  tower.PurpleTower, tower.GreenTower)
+        # tower_class = random.choice(tower_classes)
+        # dummy_tower_colour = tower_class.__name__.replace("tower", "")
+        # dummy_tower = dummy_tower_colour(0, 0, [[]], 40)
+        # self.assertEqual(dummy_tower_colour, len(dummy_tower.shots))
