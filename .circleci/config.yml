@@ -39,7 +39,7 @@ jobs:
     <<: *test_defaults
     steps:
       - run: 
-          command: pytest tst.py
+          command: py.test tst.py
 
 workflows:
   version: 2
