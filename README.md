@@ -13,14 +13,14 @@ The objective of the game is to stop enemy creeps from crossing a map by buildin
 <img src="/img/interface.png">
 </p>
 
-Installation
+(Installation?)
 ------------
 
 Clone the git repo into a local directory and run on the desktop
 ```bash
 $ git clone git@github.com:yrkumar/tower-defense.git localDir/
 $ cd localDir/
-$ python main.py
+$ python3 main.py
 ```
 
 About
