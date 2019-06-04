@@ -3,7 +3,7 @@ import enemy
 import tower
 from unittest.mock import patch
 import random
-import main
+
 
 
 class GameTest(unittest.TestCase):
