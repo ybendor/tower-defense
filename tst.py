@@ -87,6 +87,3 @@ class GameTest(unittest.TestCase):
         # colours += "Tower"
         # dummy_game.checkCanBuyTower(colour)
         # assert(self.money >= tower.colour.cost)
-
-
-
