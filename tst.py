@@ -3,6 +3,7 @@ import enemy
 import tower
 from unittest.mock import patch
 import random
+import main
 
 
 class GameTest(unittest.TestCase):
@@ -57,3 +58,35 @@ class GameTest(unittest.TestCase):
         # dummy_tower_colour = tower_class.__name__.replace("tower", "")
         # dummy_tower = dummy_tower_colour(0, 0, [[]], 40)
         # self.assertEqual(dummy_tower_colour, len(dummy_tower.shots))
+
+    def test_slowSpeed(self):
+        enemy_colours = ["white", "pink", "yellow", "cyan", "maroon"]
+        colour = random.choice(enemy_colours)
+        dummy_enemy = enemy.Enemy(15, 15, 40, (0, 1), [[]], 5, colour)
+        dummy_enemy.slowSpeed()
+        assert(dummy_enemy.speedFactor == 0.2)
+
+    def test_setSpeedFactor(self):
+        enemy_colours = ["white", "pink", "yellow", "cyan", "maroon"]
+        colour = random.choice(enemy_colours)
+        dummy_enemy = enemy.Enemy(15, 15, 40, (0, 1), [[]], 5, colour)
+        if colour == "pink" or colour == "yellow":
+            assert(dummy_enemy.speedFactor == 8.0/5)
+        elif colour == "cyan" or colour == "maroon":
+            assert(dummy_enemy.speedFactor == 2.0)
+        else:
+            assert(dummy_enemy.speedFactor == 1)
+
+    def test_checkCanBuyTower(self):
+        pass
+        # dummy_game = main.towerDefense()
+        # money = random.randint(0, 100)
+        # dummy_game.money = money
+        # tower_colours = ["Orange", "Red", "Green", "Purple"]
+        # colour = random.choice(tower_colours)
+        # colours += "Tower"
+        # dummy_game.checkCanBuyTower(colour)
+        # assert(self.money >= tower.colour.cost)
+
+
+
