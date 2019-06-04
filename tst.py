@@ -50,14 +50,49 @@ class GameTest(unittest.TestCase):
         print(c1)
         print(c2)
 
-    def ignore_get_color(self):
-        pass
-        # tower_classes = (tower.OrangeTower, tower.RedTower,
-        #                  tower.PurpleTower, tower.GreenTower)
-        # tower_class = random.choice(tower_classes)
-        # dummy_tower_colour = tower_class.__name__.replace("tower", "")
-        # dummy_tower = dummy_tower_colour(0, 0, [[]], 40)
-        # self.assertEqual(dummy_tower_colour, len(dummy_tower.shots))
+    def test_get_color(self):
+        tower_classes = (tower.OrangeTower, tower.RedTower,
+                         tower.PurpleTower, tower.GreenTower)
+        tower_class = random.choice(tower_classes)
+        dummy_tower_colour = tower_class.__name__.replace("Tower", "").lower()
+        if dummy_tower_colour == "purple":
+            dummy_tower_colour = "#8C489F"
+        dummy_tower = tower_class(0, 0, [[]], 40)
+        self.assertEqual(dummy_tower_colour, dummy_tower.get_color())
+
+    def test_isOffScreen(self):
+        board = [[0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+                 [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0],
+                 [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0],
+                 [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0],
+                 [0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0],
+                 [0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0],
+                 [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0],
+                 [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 3]]
+
+        tower_classes = (tower.OrangeTower, tower.RedTower,
+                         tower.PurpleTower, tower.GreenTower)
+        tower_class = random.choice(tower_classes)
+        dummy_tower = tower_class(0, 0, [[]], 40)
+
+        enemy_colours = ["white", "pink", "yellow", "cyan", "maroon"]
+        colour = random.choice(enemy_colours)
+        dummy_enemy = enemy.Enemy(15, 15, 40, (0, 1), [[]], 5, colour)
+
+        shot = Shot(dummy_tower,dummy_enemy,board,40)
+        nshot = copy.deepcopy(shot)
+        index = random.randint(0, 1)
+        value = random.randint(0,100)
+        nshot.location[index] = -value
+        self.assertEqual(nshot.isOffScreen(),True)
+        self.assertEqual(shot.isOffScreen(), False)
 
     def test_slowSpeed(self):
         enemy_colours = ["white", "pink", "yellow", "cyan", "maroon"]
@@ -78,7 +113,6 @@ class GameTest(unittest.TestCase):
             assert(dummy_enemy.speedFactor == 1)
 
     def test_checkCanBuyTower(self):
-        pass
         # dummy_game = main.towerDefense()
         # money = random.randint(0, 100)
         # dummy_game.money = money
@@ -87,3 +121,4 @@ class GameTest(unittest.TestCase):
         # colours += "Tower"
         # dummy_game.checkCanBuyTower(colour)
         # assert(self.money >= tower.colour.cost)
+        pass
