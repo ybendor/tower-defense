@@ -12,6 +12,25 @@ import math
 ###########################################
 
 class towerDefense(Animation):
+    def __init__(self):
+        self.board = self.boardDim = self.cellDim = \
+            self.clickedButton = self.cols = self.counter = \
+            self.enemyHealth = self.enemyWave = self.gameOver = \
+            self.gameOverHelpImage = self.gameOverImage = \
+            self.greenTower = self.height = self.infoButton = \
+            self.instructionsHelpImage = self.instructionsImage = \
+            self.isEnemyWave = self.lives = self.money =\
+            self.numEnemies = self.numEnemiesOnBoard = \
+            self.numWaves = self.orangeTower = self.pause = \
+            self.pauseImage = self.purpleTower = self.redTower = \
+            self.rows = self.score = self.sendWaveButton = \
+            self.slowEnemies = self.startHelpImage = self.startImage = \
+            self.startLocation = self.startScreen = \
+            self.startScreenHelpMode = self.startWave = \
+            self.towerButtonClicked = self.towerButtons = \
+            self.towerImage = self.towers = self.waveNum = self.width = \
+            self.youWinHelpImage = self.youWinImage = self.youWon = None
+
     def init(self):
         self.makeBoard()
         self.initGameConstants()
@@ -30,9 +49,6 @@ class towerDefense(Animation):
         self.createInitTowers()
         self.createTowerButtons()
         self.setStartLocation()
-        self.setStartScreen()
-
-    def setStartScreen(self):
         self.startScreen = True
 
     def makeBoard(self):
@@ -181,7 +197,10 @@ class towerDefense(Animation):
                       self.clickedButton is not True):
                     canBuyTower = \
                         self.checkCanBuyTower(self.clickedButton.iconColor)
-                    self.towerButtonClicked = True
+                    if canBuyTower:
+                        self.towerButtonClicked = True
+                    else:
+                        self.towerButtonClicked = False
         elif (self.gameOver and
               self.startScreen is False and
               self.youWon is False):
@@ -200,17 +219,13 @@ class towerDefense(Animation):
             if (tower.row, tower.col) == (row, col):
                 return canBuyTower
         if towerDetails == "Orange":
-            canBuyTower = (
-                    self.money >= self.orangeTower.cost)
+            canBuyTower = (self.money >= self.orangeTower.cost)
         elif towerDetails == "Red":
-            canBuyTower = (
-                    self.money >= self.redTower.cost)
+            canBuyTower = (self.money >= self.redTower.cost)
         elif towerDetails == "Green":
-            canBuyTower = (
-                    self.money >= self.greenTower.cost)
+            canBuyTower = (self.money >= self.greenTower.cost)
         elif towerDetails == "Purple":
-            canBuyTower = (
-                    self.money >= self.purpleTower.cost)
+            canBuyTower = (self.money >= self.purpleTower.cost)
         return canBuyTower
 
     def legalTowerClick(self, row, col):
@@ -628,8 +643,8 @@ class towerDefense(Animation):
                                 text="Score: " + str(self.score), fill="white")
         self.canvas.create_text(self.infoButton[2] - 55,
                                 self.infoButton[1] + pad + 35,
-                                text="Wave: " + str(self.waveNum)
-                                     + "/" + str(self.numWaves), fill="white")
+                                text="Wave: " + str(self.waveNum) +
+                                     "/" + str(self.numWaves), fill="white")
         self.canvas.create_text(self.infoButton[2] - 55,
                                 self.infoButton[1] + pad + 75,
                                 text="Money: " + str(self.money), fill="white")
@@ -726,5 +741,6 @@ class towerDefense(Animation):
                                  self.height - 100, image=self.youWinHelpImage)
 
 
-app = towerDefense()
-app.run()
+if __name__ == '__main__':
+    app = towerDefense()
+    app.run()
