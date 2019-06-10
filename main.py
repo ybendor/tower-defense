@@ -181,10 +181,7 @@ class towerDefense(Animation):
                       self.clickedButton is not True):
                     canBuyTower = \
                         self.checkCanBuyTower(self.clickedButton.iconColor)
-                    if canBuyTower:
-                        self.towerButtonClicked = True
-                    else:
-                        self.towerButtonClicked = False
+                    self.towerButtonClicked = True
         elif (self.gameOver and
               self.startScreen is False and
               self.youWon is False):
@@ -729,5 +726,6 @@ class towerDefense(Animation):
                                  self.height - 100, image=self.youWinHelpImage)
 
 
-app = towerDefense()
-app.run()
+if __name__ == '__main__':
+    app = towerDefense()
+    app.run()
