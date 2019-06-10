@@ -40,9 +40,17 @@ jobs:
     steps:
       - checkout
       - run:
-          command: sudo pip install pytest
-      - run: 
-          command: pytest tst.py
+          command: sudo pip install pytest pytest-cov codecov
+      - run:
+          name: Run tests
+          command: pytest test_all.py --cov=./
+      - store_artifacts:
+          path: test-reports
+          destination: test-reports
+      - run:
+          name: Upload coverage
+          command: |
+            codecov -t $CODECOV_TOKEN
 
 workflows:
   version: 2
