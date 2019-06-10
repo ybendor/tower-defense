@@ -11,6 +11,9 @@ import math
 # Tower Defense Game class
 ###########################################
 
+SEND_WAVE_BUTTON = "SAVE_WAVE_BUTTON"
+
+
 class towerDefense(Animation):
     def init(self):
         self.makeBoard()
@@ -159,12 +162,12 @@ class towerDefense(Animation):
                     self.newTower(row, col, self.clickedButton.iconColor)
                     self.towerButtonClicked = False
                     self.clickedButton = None
-                elif (self.whichButton(event.x, event.y) and
-                      self.isEnemyWave is False):
+                elif (self.whichButton(event.x, event.y) == SEND_WAVE_BUTTON
+                      and self.isEnemyWave is False):
                     self.newEnemyWave()
                     self.towerButtonClicked = False
                 elif (self.whichButton(event.x, event.y) is not None and
-                      self.clickedButton is not True):
+                      self.whichButton(event.x, event.y) != SEND_WAVE_BUTTON):
                     self.clickedButton = self.whichButton(event.x, event.y)
                     canBuyTower = \
                         self.checkCanBuyTower(self.clickedButton.iconColor)
@@ -174,11 +177,12 @@ class towerDefense(Animation):
                         self.towerButtonClicked = False
             else:
                 self.clickedButton = self.whichButton(event.x, event.y)
-                if self.clickedButton and self.isEnemyWave is False:
+                if self.clickedButton == SEND_WAVE_BUTTON and\
+                        self.isEnemyWave is False:
                     self.newEnemyWave()
                     self.clickedButton = None
                 elif (self.clickedButton is not None and
-                      self.clickedButton is not True):
+                      self.clickedButton != SEND_WAVE_BUTTON):
                     canBuyTower = \
                         self.checkCanBuyTower(self.clickedButton.iconColor)
                     self.towerButtonClicked = True
@@ -244,7 +248,7 @@ class towerDefense(Animation):
                 return button
         if (self.sendWaveButton[0] < x < self.sendWaveButton[2] and
                 self.sendWaveButton[1] < y < self.sendWaveButton[3]):
-            return True
+            return SEND_WAVE_BUTTON
         return None
 
     def newEnemyWave(self):
