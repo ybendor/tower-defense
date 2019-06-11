@@ -11,9 +11,6 @@ import math
 # Tower Defense Game class
 ###########################################
 
-SEND_WAVE_BUTTON = "SAVE_WAVE_BUTTON"
-
-
 class towerDefense(Animation):
     def init(self):
         self.makeBoard()
@@ -76,17 +73,17 @@ class towerDefense(Animation):
                            self.sendWaveButton[3] + 140]
 
     def loadImages(self):
-        self.gameOverImage = PhotoImage(file="img/gameOver.gif")
-        self.gameOverHelpImage = PhotoImage(file="img/gameOverHelp.gif")
-        self.startImage = PhotoImage(file="img/towerDefense.gif")
-        self.startHelpImage = PhotoImage(file="img/startHelp.gif")
-        self.instructionsImage = PhotoImage(file="img/instructions.gif")
+        self.gameOverImage = PhotoImage(file=sys._MEIPASS + "\\img\\gameOver.gif")
+        self.gameOverHelpImage = PhotoImage(file=sys._MEIPASS + "\\img\\gameOverHelp.gif")
+        self.startImage = PhotoImage(file=sys._MEIPASS + "\\img\\towerDefense.gif")
+        self.startHelpImage = PhotoImage(file=sys._MEIPASS + "\\img\\startHelp.gif")
+        self.instructionsImage = PhotoImage(file=sys._MEIPASS + "\\img\\instructions.gif")
         self.instructionsHelpImage = \
-            PhotoImage(file="img/instructionsHelp.gif")
-        self.pauseImage = PhotoImage(file="img/pauseImage.gif")
-        self.youWinImage = PhotoImage(file="img/youWin.gif")
-        self.youWinHelpImage = PhotoImage(file="img/youWinHelp.gif")
-        self.towerImage = PhotoImage(file="img/tower.gif")
+            PhotoImage(file=sys._MEIPASS + "\\img\\instructionsHelp.gif")
+        self.pauseImage = PhotoImage(file=sys._MEIPASS + "\\img\\pauseImage.gif")
+        self.youWinImage = PhotoImage(file=sys._MEIPASS + "\\img\\youWin.gif")
+        self.youWinHelpImage = PhotoImage(file=sys._MEIPASS + "\\img\\youWinHelp.gif")
+        self.towerImage = PhotoImage(file=sys._MEIPASS + "\\img\\tower.gif")
 
     def createInitTowers(self):
         self.orangeTower = OrangeTower(0, 0, self.board, self.cellDim)
@@ -162,12 +159,12 @@ class towerDefense(Animation):
                     self.newTower(row, col, self.clickedButton.iconColor)
                     self.towerButtonClicked = False
                     self.clickedButton = None
-                elif (self.whichButton(event.x, event.y) == SEND_WAVE_BUTTON
-                      and self.isEnemyWave is False):
+                elif (self.whichButton(event.x, event.y) and
+                      self.isEnemyWave is False):
                     self.newEnemyWave()
                     self.towerButtonClicked = False
                 elif (self.whichButton(event.x, event.y) is not None and
-                      self.whichButton(event.x, event.y) != SEND_WAVE_BUTTON):
+                      self.clickedButton is not True):
                     self.clickedButton = self.whichButton(event.x, event.y)
                     canBuyTower = \
                         self.checkCanBuyTower(self.clickedButton.iconColor)
@@ -177,12 +174,11 @@ class towerDefense(Animation):
                         self.towerButtonClicked = False
             else:
                 self.clickedButton = self.whichButton(event.x, event.y)
-                if self.clickedButton == SEND_WAVE_BUTTON and\
-                        self.isEnemyWave is False:
+                if self.clickedButton and self.isEnemyWave is False:
                     self.newEnemyWave()
                     self.clickedButton = None
                 elif (self.clickedButton is not None and
-                      self.clickedButton != SEND_WAVE_BUTTON):
+                      self.clickedButton is not True):
                     canBuyTower = \
                         self.checkCanBuyTower(self.clickedButton.iconColor)
                     self.towerButtonClicked = True
@@ -248,7 +244,7 @@ class towerDefense(Animation):
                 return button
         if (self.sendWaveButton[0] < x < self.sendWaveButton[2] and
                 self.sendWaveButton[1] < y < self.sendWaveButton[3]):
-            return SEND_WAVE_BUTTON
+            return True
         return None
 
     def newEnemyWave(self):
