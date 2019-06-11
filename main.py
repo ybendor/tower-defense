@@ -43,14 +43,13 @@ class towerDefense(Animation):
         self.board = board
         self.enemyDiePosition = self.findIndexInBoard(3)
         print(self.enemyDiePosition)
-        
+
     def findIndexInBoard(self, toFind):
         for r in range(len(self.board)):
             for c in range(len(self.board[r])):
                 if self.board[r][c] == toFind:
-                    return (r,c)
+                    return (r, c)
         return -1
-        
 
     def initGameConstants(self):
         self.numEnemies = 10
