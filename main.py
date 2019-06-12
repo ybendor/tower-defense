@@ -15,6 +15,50 @@ SEND_WAVE_BUTTON = "SAVE_WAVE_BUTTON"
 
 
 class towerDefense(Animation):
+    def __init__(self):
+        self.board = None
+        self.boardDim = None
+        self.cellDim = None
+        self.clickedButton = None
+        self.cols = None
+        self.counter = None
+        self.enemyHealth = None
+        self.enemyWave = None
+        self.gameOver = None
+        self.gameOverHelpImage = None
+        self.gameOverImage = None
+        self.greenTower = None
+        self.height = None
+        self.infoButton = None
+        self.instructionsHelpImage = None
+        self.instructionsImage = None
+        self.isEnemyWave = None
+        self.lives = None
+        self.money = None
+        self.numEnemies = None
+        self.numEnemiesOnBoard = None
+        self.numWaves = None
+        self.orangeTower = None
+        self.pause = None
+        self.pauseImage = None
+        self.purpleTower = None
+        self.redTower = None
+        self.rows = None
+        self.score = None
+        self.sendWaveButton = None
+        self.slowEnemies = None
+        self.startHelpImage = None
+        self.startImage = None
+        self.startLocation = None
+        self.startScreen = None
+        self.startScreenHelpMode = None
+        self.startWave = None
+        self.towerButtonClicked = None
+        self.towerButtons = None
+        self.towerImage = None
+        self.towers = None
+        self.waveNum = None
+
     def init(self):
         self.makeBoard()
         self.initGameConstants()
@@ -33,9 +77,6 @@ class towerDefense(Animation):
         self.createInitTowers()
         self.createTowerButtons()
         self.setStartLocation()
-        self.setStartScreen()
-
-    def setStartScreen(self):
         self.startScreen = True
 
     def makeBoard(self):
@@ -185,7 +226,10 @@ class towerDefense(Animation):
                       self.clickedButton != SEND_WAVE_BUTTON):
                     canBuyTower = \
                         self.checkCanBuyTower(self.clickedButton.iconColor)
-                    self.towerButtonClicked = True
+                    if canBuyTower:
+                        self.towerButtonClicked = True
+                    else:
+                        self.towerButtonClicked = False
         elif (self.gameOver and
               self.startScreen is False and
               self.youWon is False):
@@ -204,17 +248,13 @@ class towerDefense(Animation):
             if (tower.row, tower.col) == (row, col):
                 return canBuyTower
         if towerDetails == "Orange":
-            canBuyTower = (
-                    self.money >= self.orangeTower.cost)
+            canBuyTower = (self.money >= self.orangeTower.cost)
         elif towerDetails == "Red":
-            canBuyTower = (
-                    self.money >= self.redTower.cost)
+            canBuyTower = (self.money >= self.redTower.cost)
         elif towerDetails == "Green":
-            canBuyTower = (
-                    self.money >= self.greenTower.cost)
+            canBuyTower = (self.money >= self.greenTower.cost)
         elif towerDetails == "Purple":
-            canBuyTower = (
-                    self.money >= self.purpleTower.cost)
+            canBuyTower = (self.money >= self.purpleTower.cost)
         return canBuyTower
 
     def legalTowerClick(self, row, col):
@@ -632,8 +672,8 @@ class towerDefense(Animation):
                                 text="Score: " + str(self.score), fill="white")
         self.canvas.create_text(self.infoButton[2] - 55,
                                 self.infoButton[1] + pad + 35,
-                                text="Wave: " + str(self.waveNum)
-                                     + "/" + str(self.numWaves), fill="white")
+                                text="Wave: " + str(self.waveNum) +
+                                     "/" + str(self.numWaves), fill="white")
         self.canvas.create_text(self.infoButton[2] - 55,
                                 self.infoButton[1] + pad + 75,
                                 text="Money: " + str(self.money), fill="white")
