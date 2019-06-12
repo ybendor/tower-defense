@@ -583,6 +583,8 @@ class towerDefense(Animation):
             tower = self.greenTower
         elif button.iconColor == "Purple":
             tower = self.purpleTower
+        else:
+            raise RuntimeError('Invalid button icon color.')
         self.drawTowerChars(tower)
         textx = (self.boardDim + self.width - 200) / 2
         texty = (self.height - 45)

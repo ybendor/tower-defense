@@ -1,7 +1,7 @@
 import copy
 import random
 import unittest
-from unittest.mock import patch
+from unittest.mock import MagicMock
 
 import enemy
 import tower
@@ -10,21 +10,8 @@ from main import towerDefense
 
 
 class GameTest(unittest.TestCase):
-    # Tk, Canvas, ALL
-    @patch('animation.Tk')
-    @patch('animation.Canvas')
-    @patch('animation.ALL')
-    def test_example(self, mock_ALL, mock_Canvas, mock_Tk):
-        # l = []
-        # app = main.towerDefense()
-        # app.run()
-        # app.newEnemyWave()
-        # with patch.object(main.towerDefense.enemyWave.wave, l):
-        #    app.addEnemyToWave()
-        # self.assertEqual(len(app.enemyWave.wave), 1)
-        # app.enemyWave.wave.remove = MagicMock()
-        # app.enemyWave.wave.remove.assert_called_once_with(enemymock)
-        pass
+    def tearDown(self):
+        towerDefense._instance = None
 
     def test_shot(self):
         enemy_colours = ["white", "pink", "yellow", "cyan", "maroon"]
@@ -115,20 +102,45 @@ class GameTest(unittest.TestCase):
         else:
             assert (dummy_enemy.speedFactor == 1)
 
-    def test_checkCanBuyTower(self):
-        # dummy_game = main.towerDefense()
-        # money = random.randint(0, 100)
-        # dummy_game.money = money
-        # tower_colours = ["Orange", "Red", "Green", "Purple"]
-        # colour = random.choice(tower_colours)
-        # colours += "Tower"
-        # dummy_game.checkCanBuyTower(colour)
-        # assert(self.money >= tower.colour.cost)
-        pass
-
     def test_tower_defense_is_a_singleton(self):
         instance = towerDefense()
         self.assertEqual(instance, instance._instance)
         self.assertRaisesRegexp(RuntimeError,
                                 expected_regex="This class is a singleton!",
                                 callable=towerDefense)
+
+    def test_draw_tower_desc_uses_correct_tower(self):
+        def get_tower_defense(boardDim, width, height):
+            towerDefense._instance = None
+            _td = towerDefense()
+            _td.orangeTower = 'Orange'
+            _td.redTower = 'Red'
+            _td.greenTower = 'Green'
+            _td.purpleTower = 'Purple'
+            _td.boardDim = boardDim
+            _td.width = width
+            _td.height = height
+            _td.drawTowerIcon = lambda _: None
+            _td.drawTowerChars = MagicMock()
+            _td.getText = lambda _: 'dummy_text'
+            _td.canvas = MagicMock()
+            return _td
+
+        button = MagicMock()
+        for color in ('Orange', 'Red', 'Green', 'Purple'):
+            td = get_tower_defense(1, 2, 3)
+            button.iconColor = color
+            td.drawTowerDesc(button)
+            td.drawTowerChars.assert_called_with(color)
+            td.canvas.create_text.assert_called_with(
+                -98.5,
+                -42,
+                text='dummy_text',
+                fill='white',
+                justify='center')
+        td = get_tower_defense(None, None, None)
+        button.iconColor = None
+        self.assertRaisesRegexp(RuntimeError,
+                                'Invalid button icon color.',
+                                td.drawTowerDesc,
+                                button)
