@@ -43,7 +43,7 @@ jobs:
           command: sudo pip install pytest pytest-cov codecov
       - run:
           name: Run tests
-          command: pytest test_all.py --cov=./
+          command: pytest tst.py --cov=./
       - store_artifacts:
           path: test-reports
           destination: test-reports
