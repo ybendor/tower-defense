@@ -1,10 +1,15 @@
-from animation import (Animation, ALL)
-from tkinter import PhotoImage
-from enemy import (EnemyWave, Enemy)
-from tower import (Tower, TowerArray, OrangeTower, PurpleTower,
-                   RedTower, GreenTower)
-from extras import (TowerButton)
 import math
+
+from tkinter import PhotoImage
+from extras import TowerButton
+from enemy import EnemyWave, Enemy
+from animation import Animation, ALL
+from tower import (Tower,
+                   RedTower,
+                   TowerArray,
+                   GreenTower,
+                   OrangeTower,
+                   PurpleTower)
 
 
 ###########################################
@@ -13,8 +18,8 @@ import math
 
 SEND_WAVE_BUTTON = "SAVE_WAVE_BUTTON"
 
-class towerDefense(Animation):
 
+class towerDefense(Animation):
     _instance = None
 
     def __init__(self):
@@ -60,8 +65,8 @@ class towerDefense(Animation):
         self.towerImage = None
         self.towers = None
         self.waveNum = None
-        if towerDefense._instance != None:
-            raise Exception("This class is a singleton!")
+        if towerDefense._instance is not None:
+            raise RuntimeError("This class is a singleton!")
         else:
             towerDefense._instance = self
 
