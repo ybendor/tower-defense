@@ -13,8 +13,10 @@ import math
 
 SEND_WAVE_BUTTON = "SAVE_WAVE_BUTTON"
 
-
 class towerDefense(Animation):
+
+    _instance = None
+
     def __init__(self):
         self.board = None
         self.boardDim = None
@@ -58,6 +60,10 @@ class towerDefense(Animation):
         self.towerImage = None
         self.towers = None
         self.waveNum = None
+        if towerDefense._instance != None:
+            raise Exception("This class is a singleton!")
+        else:
+            towerDefense._instance = self
 
     def init(self):
         self.makeBoard()
