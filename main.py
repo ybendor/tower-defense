@@ -1,4 +1,5 @@
 import math
+from Boards import BoardsClass
 
 from tkinter import PhotoImage
 from extras import TowerButton
@@ -91,24 +92,19 @@ class towerDefense(Animation):
         self.startScreen = True
 
     def makeBoard(self):
-        board = [[0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                 [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                 [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-                 [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0],
-                 [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0],
-                 [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0],
-                 [0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0],
-                 [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-                 [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0],
-                 [0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0],
-                 [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0],
-                 [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0],
-                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 3]]
+        board = BoardsClass.GetBoard()
         self.rows, self.cols = len(board), len(board[0])
         self.cellDim = 40
         self.board = board
+        self.enemyDiePosition = self.findIndexInBoard(3)
+        print(self.enemyDiePosition)
+
+    def findIndexInBoard(self, toFind):
+        for r in range(len(self.board)):
+            for c in range(len(self.board[r])):
+                if self.board[r][c] == toFind:
+                    return (r, c)
+        return -1
 
     def initGameConstants(self):
         self.numEnemies = 10
@@ -329,7 +325,7 @@ class towerDefense(Animation):
                     self.startWave = False
                 for enemy in self.enemyWave.wave:
                     (row, col) = self.getRowCol(enemy.location)
-                    if (row, col) == (self.rows - 1, self.cols - 1):
+                    if (row, col) == self.enemyDiePosition:
                         self.loseLife(enemy)
                     enemy.moveEnemy()
                 for tower in self.towers.towerList:
