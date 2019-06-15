@@ -11,6 +11,7 @@ import math
 # Tower Defense Game class
 ###########################################
 
+# noinspection PyProtectedMember
 class towerDefense(Animation):
     def init(self):
         self.makeBoard()
