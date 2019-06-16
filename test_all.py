@@ -14,7 +14,7 @@ class GameTest(unittest.TestCase):
         towerDefense._instance = None
 
     @patch('extras.pygame')
-    def test_shot(self):
+    def test_shot(self, mock_pygame):
         enemy_colours = ["white", "pink", "yellow", "cyan", "maroon"]
         colour = random.choice(enemy_colours)
         dummy_enemy = enemy.Enemy(0, 0, 40, (0, 0), [[]], 5, colour)
@@ -52,7 +52,7 @@ class GameTest(unittest.TestCase):
         self.assertEqual(dummy_tower_colour, dummy_tower.get_color())
 
     @patch('extras.pygame')
-    def test_isOffScreen(self):
+    def test_isOffScreen(self, mock_pygame):
         board = [[0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                  [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                  [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
