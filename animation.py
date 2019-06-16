@@ -1,5 +1,5 @@
 import pygame
-from tkinter import Tk, Canvas, ALL, Button
+from tkinter import Tk, Canvas, ALL
 
 
 ###########################################
