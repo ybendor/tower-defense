@@ -3,6 +3,7 @@
 ###########################################
 
 import math
+import pygame
 
 
 class Shot:
@@ -20,6 +21,12 @@ class Shot:
         self.dx = -1 * math.cos(self.angle) * self.speed
         self.dy = -1 * math.sin(self.angle) * self.speed
         self.center = self.calculateCenter(self.location)
+
+        def play():
+            pygame.mixer.music.load("pew.wav")  # Loading File Into Mixer
+            pygame.mixer.music.play()  # Playing It In The Whole Device
+
+        play()
 
     def __repr__(self):
         return "Shot(%r, %r, %r)" % (self.location, self.dx, self.dy)
