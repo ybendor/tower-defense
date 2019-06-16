@@ -26,7 +26,7 @@ class Shot:
             pygame.mixer.music.load("pew.wav")  # Loading File Into Mixer
             pygame.mixer.music.play()  # Playing It In The Whole Device
 
-        play()
+       play()
 
     def __repr__(self):
         return "Shot(%r, %r, %r)" % (self.location, self.dx, self.dy)
