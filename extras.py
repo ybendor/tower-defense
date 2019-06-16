@@ -21,51 +21,61 @@ class Shot:
         self.dx = -1 * math.cos(self.angle) * self.speed
         self.dy = -1 * math.sin(self.angle) * self.speed
         self.center = self.calculateCenter(self.location)
-       pygame.mixer.init()
-       def play():
-           pygame.mixer.music.load("pew.wav")  # Loading File Into Mixer
-           pygame.mixer.music.play()  # Playing It In The Whole Device
-       play()
 
-    def __repr__(self):
-        return "Shot(%r, %r, %r)" % (self.location, self.dx, self.dy)
+    pygame.mixer.init()
 
-    def whichColor(self, tower):
-        return tower.get_color()
+    def play():
+        pygame.mixer.music.load("pew.wav")  # Loading File Into Mixer
+        pygame.mixer.music.play()  # Playing It In The Whole Device
 
-    def calculateLocation(self, tower):
-        startx = tower.center[0] - 5
-        starty = tower.center[1] - 5
-        endx = startx + 10
-        endy = starty + 10
-        location = [startx, starty, endx, endy]
-        return location
+    play()
 
-    def calculateAngle(self, tower, enemy):
-        xDistance = tower.center[0] - enemy.center[0]
-        yDistance = tower.center[1] - enemy.center[1]
-        angle = math.atan2(yDistance, xDistance)
-        return angle
 
-    def calculateCenter(self, location):
-        centerX = (location[2] - location[0]) / 2.0 + location[0]
-        centerY = (location[3] - location[1]) / 2.0 + location[1]
-        return [centerX, centerY]
+def __repr__(self):
+    return "Shot(%r, %r, %r)" % (self.location, self.dx, self.dy)
 
-    def moveShot(self):
-        self.location[0] += self.dx * self.originTower.shotSpeed
-        self.location[1] += self.dy * self.originTower.shotSpeed
-        self.location[2] += self.dx * self.originTower.shotSpeed
-        self.location[3] += self.dy * self.originTower.shotSpeed
-        self.center = self.calculateCenter(self.location)
 
-    def isOffScreen(self):
-        if (self.location[0] < 0 or
-                self.location[1] < 0 or
-                self.location[2] > (self.cols + 1) * self.cellDim or
-                self.location[3] > (self.rows + 1) * self.cellDim):
-            return True
-        return False
+def whichColor(self, tower):
+    return tower.get_color()
+
+
+def calculateLocation(self, tower):
+    startx = tower.center[0] - 5
+    starty = tower.center[1] - 5
+    endx = startx + 10
+    endy = starty + 10
+    location = [startx, starty, endx, endy]
+    return location
+
+
+def calculateAngle(self, tower, enemy):
+    xDistance = tower.center[0] - enemy.center[0]
+    yDistance = tower.center[1] - enemy.center[1]
+    angle = math.atan2(yDistance, xDistance)
+    return angle
+
+
+def calculateCenter(self, location):
+    centerX = (location[2] - location[0]) / 2.0 + location[0]
+    centerY = (location[3] - location[1]) / 2.0 + location[1]
+    return [centerX, centerY]
+
+
+def moveShot(self):
+    self.location[0] += self.dx * self.originTower.shotSpeed
+    self.location[1] += self.dy * self.originTower.shotSpeed
+    self.location[2] += self.dx * self.originTower.shotSpeed
+    self.location[3] += self.dy * self.originTower.shotSpeed
+    self.center = self.calculateCenter(self.location)
+
+
+def isOffScreen(self):
+    if (self.location[0] < 0 or
+            self.location[1] < 0 or
+            self.location[2] > (self.cols + 1) * self.cellDim or
+            self.location[3] > (self.rows + 1) * self.cellDim):
+        return True
+    return False
 
 
 ###########################################
