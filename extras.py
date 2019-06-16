@@ -21,7 +21,8 @@ class Shot:
         self.dx = -1 * math.cos(self.angle) * self.speed
         self.dy = -1 * math.sin(self.angle) * self.speed
         self.center = self.calculateCenter(self.location)
-
+        
+        pygame.init()
         def play():
             pygame.mixer.music.load("pew.wav")  # Loading File Into Mixer
             pygame.mixer.music.play()  # Playing It In The Whole Device
