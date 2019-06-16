@@ -1,4 +1,5 @@
-from tkinter import Tk, Canvas, ALL
+import pygame
+from tkinter import Tk, Canvas, ALL, Button
 
 
 ###########################################
@@ -53,5 +54,6 @@ class Animation(object):
         # init and get timerFired running
         self.init()
         timerFiredWrapper()
+        pygame.init()
         # launch the app
         root.mainloop()
