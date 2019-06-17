@@ -1,7 +1,7 @@
 import copy
 import random
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
 import enemy
 import tower
@@ -13,8 +13,7 @@ class GameTest(unittest.TestCase):
     def tearDown(self):
         towerDefense._instance = None
 
-    @patch('extras.pygame')
-    def test_shot(self, mock_pygame):
+    def test_shot(self):
         enemy_colours = ["white", "pink", "yellow", "cyan", "maroon"]
         colour = random.choice(enemy_colours)
         dummy_enemy = enemy.Enemy(0, 0, 40, (0, 0), [[]], 5, colour)
@@ -51,8 +50,7 @@ class GameTest(unittest.TestCase):
         dummy_tower = tower_class(0, 0, [[]], 40)
         self.assertEqual(dummy_tower_colour, dummy_tower.get_color())
 
-    @patch('extras.pygame')
-    def test_isOffScreen(self, mock_pygame):
+    def test_isOffScreen(self):
         board = [[0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                  [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                  [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
