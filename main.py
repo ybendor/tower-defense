@@ -1,4 +1,5 @@
 import math
+import pygame
 from Boards import BoardsClass
 
 from tkinter import PhotoImage
@@ -11,7 +12,6 @@ from tower import (Tower,
                    GreenTower,
                    OrangeTower,
                    PurpleTower)
-
 
 ###########################################
 # Tower Defense Game class
@@ -225,7 +225,7 @@ class towerDefense(Animation):
                         self.towerButtonClicked = False
             else:
                 self.clickedButton = self.whichButton(event.x, event.y)
-                if self.clickedButton == SEND_WAVE_BUTTON and\
+                if self.clickedButton == SEND_WAVE_BUTTON and \
                         self.isEnemyWave is False:
                     self.newEnemyWave()
                     self.clickedButton = None
@@ -309,6 +309,8 @@ class towerDefense(Animation):
         self.numEnemiesOnBoard = 0
 
     def youWin(self):
+        pygame.mixer.music.load("TaDa.wav")  # Loading File Into Mixer
+        pygame.mixer.music.play()  # Playing It In The Whole Device
         self.youWon = True
 
     def timerFired(self):
@@ -415,7 +417,8 @@ class towerDefense(Animation):
             else:
                 for enemy in self.enemyWave.wave:
                     if self.shotHitEnemy(shot, enemy):
-                        tower.shots.remove(shot)
+                        if shot in tower.shots:
+                            tower.shots.remove(shot)
                         tower.shotOnScreen = False
                         enemy.health -= tower.shotDamage
                         if enemy.health <= 0:
@@ -714,8 +717,8 @@ class towerDefense(Animation):
                                      "\n\n6. Pause in game by pressing \'P\'"
                                      " and restart at any time by pressing"
                                      " \'R\'.",
-                                font="Verdana 25", fill="white", anchor="nw")
-        self.canvas.create_image(self.width / 2, self.height - 30,
+                                font="Verdana 18", fill="white", anchor="nw")
+        self.canvas.create_image(self.width / 2, self.height - 40,
                                  image=self.pauseImage)
 
     def drawGameOver(self):
@@ -745,15 +748,15 @@ class towerDefense(Animation):
                                      self.height, fill="#003366")
         self.canvas.create_image(self.width / 2, 60,
                                  image=self.instructionsImage)
-        self.canvas.create_text(15, 100,
+        self.canvas.create_text(15, 100, width=1000,
                                 text="1. The goal of tower defense is placing"
-                                     " towers on the screen to defeat waves\n"
-                                     "    of enemies.\n\n2. Towers have"
+                                     " towers on the screen to defeat waves"
+                                     " of enemies.\n\n2. Towers have"
                                      " differing characteristics which can be"
-                                     " viewed by clicking on\n    their"
+                                     " viewed by clicking on their"
                                      " respective buttons.\n\n3. Buy towers"
                                      " with money and place the towers in"
-                                     " strategic locations on the\n    map to"
+                                     " strategic locations on the map to"
                                      " fire at enemies, stopping them from"
                                      " getting to the end of the path.\n\n4."
                                      " Send for new enemy waves after"
@@ -762,7 +765,7 @@ class towerDefense(Animation):
                                      " track your progress in the game.\n\n6."
                                      " Pause in game by pressing \'P\' and"
                                      " restart at any time by pressing \'R\'.",
-                                font="Verdana 25", fill="white", anchor="nw")
+                                font="Verdana 18", fill="white", anchor="nw")
         self.canvas.create_image(self.width / 2, self.height - 40,
                                  image=self.instructionsHelpImage)
 
