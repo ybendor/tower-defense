@@ -112,7 +112,7 @@ class towerDefense(Animation):
         self.lives = 5
         self.score = 0
         self.waveNum = 0
-        self.numWaves = 10
+        self.numWaves = 1500
         self.money = 15
         self.enemyHealth = 5
 
@@ -217,12 +217,7 @@ class towerDefense(Animation):
                 elif (self.whichButton(event.x, event.y) is not None and
                       self.whichButton(event.x, event.y) != SEND_WAVE_BUTTON):
                     self.clickedButton = self.whichButton(event.x, event.y)
-                    canBuyTower = \
-                        self.checkCanBuyTower(self.clickedButton.iconColor)
-                    if canBuyTower:
-                        self.towerButtonClicked = True
-                    else:
-                        self.towerButtonClicked = False
+                    self.towerButtonClicked = True
             else:
                 self.clickedButton = self.whichButton(event.x, event.y)
                 if self.clickedButton == SEND_WAVE_BUTTON and \
@@ -231,12 +226,7 @@ class towerDefense(Animation):
                     self.clickedButton = None
                 elif (self.clickedButton is not None and
                       self.clickedButton != SEND_WAVE_BUTTON):
-                    canBuyTower = \
-                        self.checkCanBuyTower(self.clickedButton.iconColor)
-                    if canBuyTower:
-                        self.towerButtonClicked = True
-                    else:
-                        self.towerButtonClicked = False
+                    self.towerButtonClicked = True
         elif (self.gameOver and
               self.startScreen is False and
               self.youWon is False):
@@ -301,6 +291,7 @@ class towerDefense(Animation):
     def newEnemyWave(self):
         self.isEnemyWave = True
         self.waveNum += 1
+        self.numEnemies += 2
         self.enemyHealth += 2
         self.enemyWave = EnemyWave(self.numEnemies, self.rows,
                                    self.cols, self.cellDim, self.startLocation,
@@ -321,7 +312,7 @@ class towerDefense(Animation):
             self.slowEnemies = []
             self.counter += 1
             if self.isEnemyWave:
-                if (self.counter % 20 == 0 and
+                if (int(self.counter % 22 - math.log(self.waveNum)) == 0 and
                         self.numEnemiesOnBoard < self.numEnemies):
                     self.addEnemyToWave()
                     self.startWave = False
