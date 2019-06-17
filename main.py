@@ -227,12 +227,6 @@ class towerDefense(Animation):
                 elif (self.clickedButton is not None and
                       self.clickedButton != SEND_WAVE_BUTTON):
                     self.towerButtonClicked = True
-                    # canBuyTower = \
-                    #     self.checkCanBuyTower(self.clickedButton.iconColor)
-                    # if canBuyTower:
-                    #     self.towerButtonClicked = True
-                    # else:
-                    #     self.towerButtonClicked = False
         elif (self.gameOver and
               self.startScreen is False and
               self.youWon is False):
