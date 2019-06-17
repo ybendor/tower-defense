@@ -40,8 +40,6 @@ jobs:
     steps:
       - checkout
       - run:
-          command: sudo pip install pygame
-      - run:
           command: sudo pip install pytest pytest-cov codecov
       - run:
           name: Run tests
