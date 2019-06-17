@@ -3,6 +3,7 @@
 ###########################################
 
 import math
+import pygame
 
 
 class Shot:
@@ -13,13 +14,17 @@ class Shot:
         self.cols = len(board[0])
         self.cellDim = cellDim
         self.speed = 15
-        self.color = self.whichColor(self.originTower)
+        self.color = self.originTower.color
         self.location = self.calculateLocation(self.originTower)
         self.angle = self.calculateAngle(self.originTower,
                                          self.targetEnemy)
         self.dx = -1 * math.cos(self.angle) * self.speed
         self.dy = -1 * math.sin(self.angle) * self.speed
         self.center = self.calculateCenter(self.location)
+
+        pygame.mixer.init()
+        pygame.mixer.music.load("pew.wav")  # Loading File Into Mixer
+        pygame.mixer.music.play()  # Playing It In The Whole Device
 
     def __repr__(self):
         return "Shot(%r, %r, %r)" % (self.location, self.dx, self.dy)
