@@ -1,4 +1,6 @@
 import math
+import os
+
 import pygame
 from Boards import BoardsClass
 
@@ -124,17 +126,33 @@ class towerDefense(Animation):
                            self.sendWaveButton[3] + 140]
 
     def loadImages(self):
-        self.gameOverImage = PhotoImage(file="img/gameOver.gif")
-        self.gameOverHelpImage = PhotoImage(file="img/gameOverHelp.gif")
-        self.startImage = PhotoImage(file="img/towerDefense.gif")
-        self.startHelpImage = PhotoImage(file="img/startHelp.gif")
-        self.instructionsImage = PhotoImage(file="img/instructions.gif")
-        self.instructionsHelpImage = \
-            PhotoImage(file="img/instructionsHelp.gif")
-        self.pauseImage = PhotoImage(file="img/pauseImage.gif")
-        self.youWinImage = PhotoImage(file="img/youWin.gif")
-        self.youWinHelpImage = PhotoImage(file="img/youWinHelp.gif")
-        self.towerImage = PhotoImage(file="img/tower.gif")
+        def get_path(relative_path):
+            """
+                Get absolute path to resource, works for dev and
+                for PyInstaller
+            """
+            try:
+                # PyInstaller creates a temp folder and stores
+                # path in _MEIPASS
+                base_path = sys._MEIPASS  # noqa
+            except Exception:
+                base_path = os.path.abspath(".")
+
+            return os.path.join(base_path, relative_path)
+
+        self.gameOverImage = PhotoImage(file=get_path("img/gameOver.gif"))
+        self.gameOverHelpImage =\
+            PhotoImage(file=get_path("img/gameOverHelp.gif"))
+        self.startImage = PhotoImage(file=get_path("img/towerDefense.gif"))
+        self.startHelpImage = PhotoImage(file=get_path("img/startHelp.gif"))
+        self.instructionsImage =\
+            PhotoImage(file=get_path("img/instructions.gif"))
+        self.instructionsHelpImage =\
+            PhotoImage(file=get_path("img/instructionsHelp.gif"))
+        self.pauseImage = PhotoImage(file=get_path("img/pauseImage.gif"))
+        self.youWinImage = PhotoImage(file=get_path("img/youWin.gif"))
+        self.youWinHelpImage = PhotoImage(file=get_path("img/youWinHelp.gif"))
+        self.towerImage = PhotoImage(file=get_path("img/tower.gif"))
 
     def createInitTowers(self):
         self.orangeTower = OrangeTower(0, 0, self.board, self.cellDim)
@@ -300,8 +318,15 @@ class towerDefense(Animation):
         self.numEnemiesOnBoard = 0
 
     def youWin(self):
-        pygame.mixer.music.load("TaDa.wav")  # Loading File Into Mixer
-        pygame.mixer.music.play()  # Playing It In The Whole Device
+        try:
+            # PyInstaller creates a temp folder and stores
+            # path in _MEIPASS
+            base_path = sys._MEIPASS  # noqa
+        except Exception:
+            base_path = os.path.abspath(".")
+        pygame.mixer.music.load(
+            os.path.join(base_path, "TaDa.wav"))  # Loading File Into Mixer
+        pygame.mixer.music.play()   # Playing It In The Whole Device
         self.youWon = True
 
     def timerFired(self):

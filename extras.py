@@ -4,6 +4,7 @@
 
 import math
 import pygame
+import os
 
 
 class Shot:
@@ -23,7 +24,14 @@ class Shot:
         self.center = self.calculateCenter(self.location)
 
         pygame.mixer.init()
-        pygame.mixer.music.load("pew.wav")  # Loading File Into Mixer
+        try:
+            # PyInstaller creates a temp folder and stores
+            # path in _MEIPASS
+            base_path = sys._MEIPASS  # noqa
+        except Exception:
+            base_path = os.path.abspath(".")
+        pygame.mixer.music.load(
+            os.path.join(base_path, "pew.wav"))  # Loading File Into Mixer
         pygame.mixer.music.play()  # Playing It In The Whole Device
 
     def __repr__(self):
