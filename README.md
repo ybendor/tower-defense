@@ -33,7 +33,11 @@ you already have 'Python3' installed.
 
 Windows:
 
-Run setup_Tower-defense.exe, and follow instructions.
+Download: 
+[Tower-defense installer](https://github.com/opensource-ninjas/tower-defense/raw/master/setup_Tower-defense.exe)
+
+Open location of the downloaded installer, then
+Run: setup_Tower-defense.exe, and follow instructions to perform the installation.
 
 Usage
 -----
