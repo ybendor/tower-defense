@@ -68,6 +68,11 @@ class towerDefense(Animation):
         self.towerImage = None
         self.towers = None
         self.waveNum = None
+
+        self.waterImage = None
+        self.groundImage = None
+        self.enemyStartImage = None
+        self.enemyFinishImage = None
         if towerDefense._instance is not None:
             raise RuntimeError("This class is a singleton!")
         else:
@@ -153,6 +158,11 @@ class towerDefense(Animation):
         self.youWinImage = PhotoImage(file=get_path("img/youWin.gif"))
         self.youWinHelpImage = PhotoImage(file=get_path("img/youWinHelp.gif"))
         self.towerImage = PhotoImage(file=get_path("img/tower.gif"))
+
+        self.waterImage = PhotoImage(file=get_path("img/water.gif"))
+        self.groundImage = PhotoImage(file=get_path("img/ground.gif"))
+        self.enemyStartImage = PhotoImage(file=get_path("img/enemystart.gif"))
+        self.enemyFinishImage = PhotoImage(file=get_path("img/enemyfinish.gif"))
 
     def createInitTowers(self):
         self.orangeTower = OrangeTower(0, 0, self.board, self.cellDim)
@@ -510,21 +520,32 @@ class towerDefense(Animation):
     def drawBoard(self):
         for row in range(self.rows):
             for col in range(self.cols):
+
                 if self.board[row][col] == 0:
-                    color = "#0F4DA8"
+                    image = self.waterImage
                 elif self.board[row][col] == 1:
-                    color = "#FFDC73"
+                    image = self.groundImage
                 elif self.board[row][col] == 2:
-                    color = "green"
+                    image = self.enemyStartImage
                 elif self.board[row][col] == 3:
-                    color = "red"
-                self.drawCell(row, col, color)
+                    image = self.enemyFinishImage
+
+                self.drawCellWithImage(row, col, image)
+
+                
+                
 
     def drawCell(self, row, col, color):
         startx, endx = col * self.cellDim, (col + 1) * self.cellDim
         starty, endy = row * self.cellDim, 150 + (row + 1) * self.cellDim
         self.canvas.create_rectangle(startx,
                                      starty, endx, endy, fill=color)
+
+    def drawCellWithImage(self, row, col, image):
+        magicConst = 21 #for some reason the images draw 20 pixels up and to the left. this "solves" it. 
+        xpos = col * self.cellDim + magicConst
+        ypos = row * self.cellDim + magicConst
+        self.canvas.create_image(xpos, ypos, image=image)
 
     def drawEnemy(self):
         for enemy in self.enemyWave.wave:
