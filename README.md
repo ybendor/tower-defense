@@ -71,5 +71,8 @@ to learn more.
 
 
 
- 
+ Graphics License:
+ -----------------
+ These graphics are free to use.
+ Zabin, Hyptosis, and Danial Cook. https://opengameart.org/content/castle-tiles-for-rpgs
 
